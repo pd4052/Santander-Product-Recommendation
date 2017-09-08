@@ -1,0 +1,79 @@
+
+****************
+TRAIN DATA
+****************
+
+select * from training limit 10;
+
+
+
+*****************
+UNPIVOTING TABLE
+*****************
+
+
+select * from santa.train_unpivot_final limit 100;
+
+
+********************
+WORDCLOUD
+********************
+
+select * from wordco order by cnt desc;
+
+
+
+*********************
+APPCENTER WORDCLOUD
+*********************
+
+INSERT INTO app_center_visualizations  (json)
+SELECT json FROM Visualizer (
+ON "wordco" PARTITION BY 1 
+ColumnMap('numericValue1=cnt','label=token') 
+AsterFunction('custom') 
+Title('Word Cloud')
+VizType('wordcloud')); 
+
+
+
+*********************
+CFILTER OUTPUT
+*********************
+
+
+select * from santa.train_cfilter_test limit 10;
+
+
+
+
+**********************
+APPCENTER SIGMA CHART
+**********************
+
+
+INSERT INTO app_center_visualizations  (json) 
+SELECT json FROM Visualizer (
+ON santa.train_cfilter_test  PARTITION BY 1 
+AsterFunction('cfilter') 
+Title('My Viz') 
+VizType('sigma')); 
+
+
+
+
+Current:526456
+Credit:35628
+Payroll:64903
+
+
+********************
+CFILTER RECOMMENDER
+********************
+
+select * from recommendation limit 10;
+
+
+
+
+

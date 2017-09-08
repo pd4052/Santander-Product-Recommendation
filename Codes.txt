@@ -1,0 +1,350 @@
+create table santa.train_unpivot_all distribute by hash (ncodpers) as
+(select * from santa.train_unpivot_1
+UNION ALL
+select * from santa.train_unpivot_2
+UNION ALL
+select * from santa.train_unpivot_3
+UNION ALL
+select * from santa.train_unpivot_4
+UNION ALL
+select * from santa.train_unpivot_5
+UNION ALL
+select * from santa.train_unpivot_6
+UNION ALL
+select * from santa.train_unpivot_7
+UNION ALL
+select * from santa.train_unpivot_8
+UNION ALL
+select * from santa.train_unpivot_9
+UNION ALL
+select * from santa.train_unpivot_10
+UNION ALL
+select * from santa.train_unpivot_11
+UNION ALL
+select * from santa.train_unpivot_12
+UNION ALL
+select * from santa.train_unpivot_13
+UNION ALL
+select * from santa.train_unpivot_14
+UNION ALL
+select * from santa.train_unpivot_15
+UNION ALL
+select * from santa.train_unpivot_16
+UNION ALL
+select * from santa.train_unpivot_17
+UNION ALL
+select * from santa.train_unpivot_18
+UNION ALL
+select * from santa.train_unpivot_19
+UNION ALL
+select * from santa.train_unpivot_20
+UNION ALL
+select * from santa.train_unpivot_21
+UNION ALL
+select * from santa.train_unpivot_22
+UNION ALL
+select * from santa.train_unpivot_23
+UNION ALL
+select * from santa.train_unpivot_24
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select fecha_dato,ncodpers,case attribute
+							when 'ind_ahor_fin_ult1'  then   'Saving Account'
+							when 'ind_aval_fin_ult1'  then   'Guarantees'
+							when 'ind_cco_fin_ult1'   then   'Current Accounts'
+							when 'ind_cder_fin_ult1'  then   'Derivada Account'
+							when 'ind_cno_fin_ult1'   then   'Payroll Account'
+							when 'ind_ctju_fin_ult1'  then   'Junior Account'as custid from santa.train_unpivot_all
+							when 'ind_ctma_fin_ult1'  then   'Más particular Account'
+							when 'ind_ctop_fin_ult1'  then   'particular Account'
+							when 'ind_ctpp_fin_ult1'  then   'particular Plus Account'
+							when 'ind_deco_fin_ult1'  then   'Short-term deposits'
+							when 'ind_deme_fin_ult1'  then   'Medium-term deposits'
+							when 'ind_dela_fin_ult1'  then   'Long-term deposits'
+							when 'ind_ecue_fin_ult1'  then   'e-account'
+							when 'ind_fond_fin_ult1'  then   'Funds'
+							when 'ind_hip_fin_ult1'   then   'Mortgage'
+							when 'ind_plan_fin_ult1'  then   'Pensions'
+							when 'ind_pres_fin_ult1'  then   'Loans'
+							when 'ind_reca_fin_ult1'  then   'Taxes'
+							when 'ind_tjcr_fin_ult1'  then   'Credit Card'
+							when 'ind_valo_fin_ult1'  then   'Securities'
+							when 'ind_viv_fin_ult1'  then   'Home Account'
+							when 'ind_nomina_ult1'    then   'Payroll'
+							when 'ind_nom_pens_ult1'  then   'Pensions'
+							when 'ind_recibo_ult1'    then   'Direct Debit'
+							end as "Product"
+from santa.train_unpivot_all;
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							create table  santa.train_unpivot_final distribute by hash (custid) as
+(select fecha_dato,ncodpers as custid,case attribute
+							when 'ind_ahor_fin_ult1'  then   'Saving Account'
+							when 'ind_aval_fin_ult1'  then   'Guarantees'
+							when 'ind_cco_fin_ult1'   then   'Current Accounts'
+							when 'ind_cder_fin_ult1'  then   'Derivada Account'
+							when 'ind_cno_fin_ult1'   then   'Payroll Account'
+							when 'ind_ctju_fin_ult1'  then   'Junior Account'
+							when 'ind_ctma_fin_ult1'  then   'Más particular Account'
+							when 'ind_ctop_fin_ult1'  then   'particular Account'
+							when 'ind_ctpp_fin_ult1'  then   'particular Plus Account'
+							when 'ind_deco_fin_ult1'  then   'Short-term deposits'
+							when 'ind_deme_fin_ult1'  then   'Medium-term deposits'
+							when 'ind_dela_fin_ult1'  then   'Long-term deposits'
+							when 'ind_ecue_fin_ult1'  then   'e-account'
+							when 'ind_fond_fin_ult1'  then   'Funds'
+							when 'ind_hip_fin_ult1'   then   'Mortgage'
+							when 'ind_plan_fin_ult1'  then   'Pensions'
+							when 'ind_pres_fin_ult1'  then   'Loans'
+							when 'ind_reca_fin_ult1'  then   'Taxes'
+							when 'ind_tjcr_fin_ult1'  then   'Credit Card'
+							when 'ind_valo_fin_ult1'  then   'Securities'
+							when 'ind_viv_fin_ult1'  then   'Home Account'
+							when 'ind_nomina_ult1'    then   'Payroll'
+							when 'ind_nom_pens_ult1'  then   'Pensions'
+							when 'ind_recibo_ult1'    then   'Direct Debit'
+							end as "product"
+from santa.train_unpivot_all);
+
+
+
+
+
+
+
+
+select * from santa.train_unpivot_final;
+
+drop table santa.train_unpivot_final;
+
+
+select * from santa.train_unpivot_final where Product='Loans' limit 10;
+
+
+
+
+
+
+
+##########
+C-filter
+##########
+select * 
+from cfilter(
+on (select 1)
+PARTITION BY 1
+database('beehive')
+INPUTTABLE('santa.train_unpivot_final')
+OUTPUTTABLE('santa.train_cfilter_test')
+INPUTCOLUMNS('product')
+JOINCOLUMNS('custid')
+OTHERCOLUMNS('fecha_dato')
+DROPTABLE('true')
+);
+
+
+
+###########
+FP Growth
+###########
+
+SELECT * FROM FPGrowth (
+ON (SELECT 1)
+PARTITION BY 1
+InputTable ('santa.train_unpivot_final')
+OutputRuleTable ('santa.fpgrowth_out_rule')
+OutputPatternTable ('santa.fpgrowth_out_pattern')
+TranItemColumns ('product')
+TranIDColumns ('custid')
+GroupByColumns ('custid')
+MinSupport (0.5)
+MinConfidence (0)
+MaxPatternLength (3)
+ConsequenceCountRange ('1-1')
+PatternsOrRules ('both')
+);
+
+
+
+#############
+WS Recommender
+#############
+
+
+ 
+
+
+SELECT * FROM WSRecommender
+(
+ON (
+     SELECT * FROM WSRecommenderReduce
+     (
+     ON (select * from santa.train_cfilter_test) AS item_table 
+     PARTITION BY col1_item1 
+     ON (select * from santa.train_unpivot_final) AS user_table 
+     PARTITION BY product 
+     ACCUMULATEITEM('custid', 'region') 
+     ACCUMULATEUSER('fecha_dato') 
+     ITEM1('col1_item1') 
+     ITEM2('col1_item2')
+           ITEMSIMILARITY('cntb')
+     USERID('custid') 
+
+    
+     )
+   ) AS input_table 
+   PARTITION BY usr, col1_item2
+)ORDER BY recommendation, product;
+
+
+
+
+
+
+
+
+
+###########################3
+cfilter Recommender
+########################
+
+
+
+
+ SELECT * FROM cfilterRecommender(
+                                   ON (select 1)
+                                   PARTITION BY 1
+                                   transaction_table('santa.train_unpivot_final')
+                                   cfilter_table('santa.train_cfilter_test')
+                                   recommendation_table('recommendation')
+                                   purchased_item_column('product')
+                                   user_column('custid')
+                                   userid('db_superuser')
+                                   password('db_superuser')
+                                   database('beehive')
+                                   drop_table('true')
+                                               );
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ #####################################
+ appcenter
+ ##############################
+ 
+ 
+ INSERT INTO app_center_visualizations  (json) 
+SELECT json FROM Visualizer (
+ON santa.train_cfilter_test  PARTITION BY 1 
+AsterFunction('cfilter') 
+Title('My Viz') 
+VizType('sigma')
+);
+
+
+
+
+
+
+INSERT INTO app_center_visualizations  (json) 
+SELECT json FROM Visualizer (
+ON "wordco" PARTITION BY 1 
+ColumnMap('numericValue1=cnt','label=token') 
+AsterFunction('custom') 
+Title('Word Cloud') 
+VizType('wordcloud')
+);
+
+
+
+
+create table wordco distribute by hash (token)as
+(select distinct product as token ,count(product) as cnt from santa.train_unpivot_final group by product);
+
+
+
+
+
+
+
+
+
+https://aster-community.teradata.com/community/learn-aster/blog/authors/karthik.guruswamy?start=0
+
